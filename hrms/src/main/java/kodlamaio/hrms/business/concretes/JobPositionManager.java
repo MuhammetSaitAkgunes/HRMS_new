@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.JobPositionService;
 import kodlamaio.hrms.core.utilites.results.Result;
-import kodlamaio.hrms.core.utilites.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilites.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobPositionDao;
 import kodlamaio.hrms.entities.concretes.JobPosition;
@@ -25,7 +24,7 @@ public class JobPositionManager implements JobPositionService{
 	
 	@Override
 	public List<JobPosition> getAll() {
-		return jobPositionDao.findAll();
+		return this.jobPositionDao.findAll();
 	}
 
 

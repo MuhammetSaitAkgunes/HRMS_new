@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.hrms.business.abstracts.JobPositionService;
 import kodlamaio.hrms.core.utilites.results.Result;
-import kodlamaio.hrms.entities.concretes.Candidates;
 import kodlamaio.hrms.entities.concretes.JobPosition;
 
 @RestController
 @RequestMapping("/api/jobPositions")
-
-
 public class JobPositionController {
 	private JobPositionService jobPositionService;
 	
