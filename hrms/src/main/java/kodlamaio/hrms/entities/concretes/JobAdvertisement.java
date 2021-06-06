@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -37,21 +40,39 @@ public class JobAdvertisement {
 	@Column(name="job_count")
 	private int job_count;
 	
-	@Column(name="job_cityid")
-	private int job_cityid;
+	//@Column(name="job_cityid")
+	//private int job_cityid;
 	
 	@Column(name="job_date")
-	private String job_date;
+	private Date job_date;
 	
-	@Column(name="job_company_id")
-	private int job_company_id;
+	//@Column(name="job_company_id")
+	//private int job_company_id;
+	
+	@Column(name = "job_salarymax")
+	private double job_salarymax;
+	
+	@Column(name = "job_salarymin")
+	private double job_salarymin;
 	
 	@Column(name="job_listdate")
 	private Date job_listdate;
 	
-	@Column(name="job_position_id")
-	private int job_position_id;
+	//@Column(name="job_position_id")
+	//private int job_position_id;
 	
 	@Column(name="job_active")
 	private boolean job_active;
+	
+	@ManyToOne
+	@JoinColumn(name = "job_company_id")
+	private Employers employer;
+	
+	@ManyToOne
+	@JoinColumn(name = "job_cityid")
+	private City city;
+
+	@ManyToOne
+	@JoinColumn(name = "job_position_id")
+	private JobPosition jobPosition;
 }

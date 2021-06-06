@@ -54,7 +54,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getActive() {
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByJob_active(true));
+		return null;
 	}
 	
 }
