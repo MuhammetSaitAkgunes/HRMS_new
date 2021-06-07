@@ -1,5 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,8 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	}
 
 	@Override
-	public List<JobAdvertisement> getAll() {
-		return this.jobAdvertisementDao.findAll();
+	public DataResult<List<JobAdvertisement>> getAll() {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findAll(),"Tüm iş ilanları listelendi.");
 	}
 
 	@Override
@@ -35,26 +37,41 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	
 
 	@Override
-	public List<JobAdvertisement> getCompanyAdvertisement() {
-		// TODO Auto-generated method stub
-		return null;
+	public DataResult<List<JobAdvertisement>> getCompanyAdvertisement(int id) {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByCompanyJobAndJobActive(id),"Seçili şirketin aktif ilanları listelendi.");
 	}
 
 	@Override
 	public Result delete(JobAdvertisement jobAdvertisement) {
-		// TODO Auto-generated method stub
-		return null;
+		this.jobAdvertisementDao.delete(jobAdvertisement);
+		return new SuccessResult("İş ilanı silindi.");
 	}
 
-	@Override
-	public Result update(JobAdvertisement jobAdvertisement) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getActive() {
-		return null;
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByJobActive(),"Tüm aktif ilanlar listelendi.");
 	}
-	
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getDateOrder() {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByJobActiveAndOrderByDeadlineDay());
+	}
+
+
+	@Override
+	public Result update(int id, boolean value_, int count,
+			String description, int smin, int smax) {
+		JobAdvertisement jobAds = jobAdvertisementDao.findById(id);
+		jobAds.setJob_active(value_);
+		jobAds.setJob_count(count);
+		jobAds.setJob_description(description);
+		jobAds.setJob_salarymin(smin);
+		jobAds.setJob_salarymax(smax);
+		jobAds.setJob_date(LocalDate.now());
+		jobAdvertisementDao.save(jobAds);
+		return new SuccessResult("İş ilanı güncellendi.");
+	}
+
+		
 }

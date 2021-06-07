@@ -1,10 +1,11 @@
 package kodlamaio.hrms.entities.concretes;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,9 +32,6 @@ public class JobAdvertisement {
 	@PrimaryKeyJoinColumn
 	private int jobadvertisement_id;
 	
-	@Column(name="job_salary")
-	private int job_salary;
-	
 	@Column(name="job_description")
 	private String job_description;
 	
@@ -44,7 +42,7 @@ public class JobAdvertisement {
 	//private int job_cityid;
 	
 	@Column(name="job_date")
-	private Date job_date;
+	private LocalDate job_date;
 	
 	//@Column(name="job_company_id")
 	//private int job_company_id;
@@ -56,7 +54,7 @@ public class JobAdvertisement {
 	private double job_salarymin;
 	
 	@Column(name="job_listdate")
-	private Date job_listdate;
+	private LocalDate job_listdate;
 	
 	//@Column(name="job_position_id")
 	//private int job_position_id;
@@ -64,15 +62,15 @@ public class JobAdvertisement {
 	@Column(name="job_active")
 	private boolean job_active;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = Employers.class,fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name = "job_company_id")
 	private Employers employer;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = City.class,fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name = "job_cityid")
 	private City city;
 
-	@ManyToOne
+	@ManyToOne(targetEntity = JobPosition.class,fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name = "job_position_id")
 	private JobPosition jobPosition;
 }
